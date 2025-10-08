@@ -10,7 +10,7 @@ def crm_lead_has_permission(doc, ptype, user):
         return True
 
     # Allow creation (even if ptype is None)
-    if ptype == "create" or ptype is None:
+    if ptype == "create":
         return True
 
     # Allow if user is the owner
