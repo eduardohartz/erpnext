@@ -1,18 +1,18 @@
-# erpnext/permissions.py
 import frappe
 
 def crm_lead_has_permission(doc, ptype, user):
-    # always allow system-level users
-    if user == "Administrator" or frappe.has_role(user, "System Manager"):
+    # Always allow system-level users / roles
+	roles = frappe.get_roles(user)
+    if user == "Administrator" or "System Manager" in roles:
         return True
 
-    # allow if the user is the lead owner
+    # Allow creation (even if ptype is None)
+    if (ptype == "create" or ptype is None):
+        return True
+
+    # Allow if user is the owner
     if getattr(doc, "lead_owner", None) == user:
         return True
 
-    # allow if explicitly shared
-    if frappe.db.exists("Share", {"parent": doc.name, "user": user}):
-        return True
-
-    # deny otherwise
+    # Otherwise deny
     return False
