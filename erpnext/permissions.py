@@ -5,9 +5,9 @@ def crm_lead_has_permission(doc, ptype, user):
     if user == "Administrator":
         return True
 
-    # Check if user has role "System Manager"
+    # Check if user has exempt roles
     user_doc = frappe.get_doc("User", user)
-    if any(r.role == "System Manager" for r in user_doc.roles):
+    if any(r.role in ("System Manager", "Sales Manager") for r in user_doc.roles):
         return True
 
     # Allow creation
@@ -17,7 +17,7 @@ def crm_lead_has_permission(doc, ptype, user):
     # Allow only if user is lead owner (compare as strings)
     lead_owner = getattr(doc, "lead_owner", None)
     if not lead_owner:
-        # fallback: try to get from database if doc is partial
+        # Fallback: try to get from database if doc is partial
         lead_owner = frappe.db.get_value("CRM Lead", doc.name, "lead_owner")
 
     if lead_owner and lead_owner == user:
@@ -25,3 +25,4 @@ def crm_lead_has_permission(doc, ptype, user):
 
     # Otherwise deny
     return False
+	
