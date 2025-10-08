@@ -2,8 +2,9 @@ import frappe
 
 def crm_lead_has_permission(doc, ptype, user):
     # Always allow system-level users / roles
-	roles = frappe.get_roles(user)
-    if user == "Administrator" or "System Manager" in roles:
+	user_doc = frappe.get_doc('User', frappe.user)
+	has_special_role = [r for r in user_doc.roles if r.role == 'System Manager']
+    if user == "Administrator" or has_special_role:
         return True
 
     # Allow creation (even if ptype is None)
