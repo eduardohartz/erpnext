@@ -666,3 +666,7 @@ default_log_clearing_doctypes = {
 export_python_type_annotations = True
 
 fields_for_group_similar_items = ["qty", "amount"]
+
+has_permission = {
+    "CRM Lead": "my_app.permissions.crm_lead_has_permission"
+}
