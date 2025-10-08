@@ -1,4 +1,4 @@
-# my_app/permissions.py
+# erpnext/permissions.py
 import frappe
 
 def crm_lead_has_permission(doc, ptype, user):
