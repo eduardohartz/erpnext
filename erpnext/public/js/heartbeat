@@ -1,0 +1,18 @@
+(() => {
+    const INTERVAL = 60000; // 1 minute
+
+    async function sendHeartbeat() {
+        try {
+            await frappe.call({
+                method: "erpnext.active.heartbeat",
+                freeze: false
+            });
+        } catch (err) {
+            console.warn("Heartbeat failed:", err);
+        }
+    }
+
+    // Ping every minute while the app is open
+    setInterval(sendHeartbeat, INTERVAL);
+    sendHeartbeat(); // immediate first call
+})();
