@@ -670,3 +670,5 @@ fields_for_group_similar_items = ["qty", "amount"]
 has_permission = {
     "CRM Lead": "erpnext.permissions.crm_lead_has_permission"
 }
+
+app_include_js = ["erpnext/public/js/heartbeat.js"]
