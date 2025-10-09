@@ -1,5 +1,5 @@
 (() => {
-    const INTERVAL = 60000; // 1 minute
+    const INTERVAL = 30000; // 1 minute
 
     async function sendHeartbeat() {
         try {
